@@ -1,5 +1,3 @@
 require "codesake_commons/version"
-
-module CodesakeCommons
-  # Your code goes here...
-end
+require "codesake_commons/logging"
+require "codesake_commons/io"

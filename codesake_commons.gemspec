@@ -5,15 +5,17 @@ require 'codesake_commons/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "codesake_commons"
-  gem.version       = CodesakeCommons::VERSION
+  gem.version       = Codesake::Commons::VERSION
   gem.authors       = ["Paolo Perego"]
   gem.email         = ["thesp0nge@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{codesake.com is an application security startup providing code review and penetration test services for Ruby powered web applications. codesake_commons is the gem containing common ground routines useful across the project}
+  gem.summary       = %q{codesake_commons is the gem containing common ground routines useful across the codesake.com project}
+  gem.homepage      = "http://codesake.com"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+  
+  gem.add_dependency 'rainbow'
 end
