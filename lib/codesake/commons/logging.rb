@@ -70,11 +70,11 @@ module Codesake
 
         log = Syslog.open("codesake") unless Syslog.opened?
         log = Syslog.reopen("codesake") if Syslog.opened?
-        log.debug(msg)  if level == :debug
-        log.warn(msg)   if level == :warn
-        log.info(msg)   if level == :helo
-        log.notice(msg) if level == :log
-        log.err(msg)    if level == :error 
+        log.debug(msg.to_s)  if level == :debug
+        log.warn(msg.to_s)   if level == :warn
+        log.info(msg.to_s)   if level == :helo
+        log.notice(msg.to_s) if level == :log
+        log.err(msg.to_s)    if level == :error 
           
         true
       end

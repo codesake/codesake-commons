@@ -1,3 +1,3 @@
-require "codesake_commons/version"
-require "codesake_commons/logging"
-require "codesake_commons/io"
+require "codesake/commons/version"
+require "codesake/commons/logging"
+require "codesake/commons/io"
