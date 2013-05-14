@@ -19,35 +19,35 @@ module Codesake
       end
 
       def die(msg, pid_file=nil)
-        printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
+        STDERR.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
         send_to_syslog(msg, :helo)
         Codesake::Commons::Io.remove_pid_file(pid_file) unless pid_file.nil?
         Kernel.exit(-1)
       end
 
       def err(msg)
-        printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
+        STDERR.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
         send_to_syslog(msg, :err)
       end
 
       def warn(msg)
-        printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:yellow)
+        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:yellow)
         send_to_syslog(msg, :warn)
       end
 
       def ok(msg)
-        printf "#{Time.now.strftime("%H:%M:%S")} [*] #{msg}\n".color(:green)
+        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")} [*] #{msg}\n".color(:green)
         send_to_syslog(msg, :log)
       end
 
       def log(msg)
         return if @silencer
-        printf "#{Time.now.strftime("%H:%M:%S")}: #{msg}\n".color(:white)
+        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")}: #{msg}\n".color(:white)
         send_to_syslog(msg, :debug)
       end
 
       def helo(msg, pid_file = nil)
-        printf "[*] #{msg} at #{Time.now.strftime("%H:%M:%S")}\n".color(:white)
+        STDOUT.printf "[*] #{msg} at #{Time.now.strftime("%H:%M:%S")}\n".color(:white)
         send_to_syslog(msg, :helo)
         create_pid_file(pid_file) unless pid_file.nil?
       end
