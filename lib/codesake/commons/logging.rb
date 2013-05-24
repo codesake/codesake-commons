@@ -55,7 +55,6 @@ module Codesake
       def toggle_silence
         @silencer = ! @silencer
         @verbose  = ! @silencer
-        warn("silenced. Logs are disabled") if @silencer
       end
 
       def toggle_syslog
