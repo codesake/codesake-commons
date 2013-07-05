@@ -49,7 +49,7 @@ module Codesake
       def helo(msg, pid_file = nil)
         STDOUT.printf "[*] #{msg} at #{Time.now.strftime("%H:%M:%S")}\n".color(:white)
         send_to_syslog(msg, :helo)
-        create_pid_file(pid_file) unless pid_file.nil?
+        Codesake::Commons::Io.create_pid_file(pid_file) unless pid_file.nil?
       end
 
       def toggle_silence
