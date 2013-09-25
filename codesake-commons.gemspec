@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'codesake/commons/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "codesake_commons"
+  gem.name          = "codesake-commons"
   gem.version       = Codesake::Commons::VERSION
   gem.authors       = ["Paolo Perego"]
   gem.email         = ["thesp0nge@gmail.com"]
