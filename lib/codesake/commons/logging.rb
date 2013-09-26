@@ -21,7 +21,7 @@ module Codesake
       end
 
       def die(msg, pid_file=nil)
-        STDERR.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
+        STDERR.print "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
         send_to_syslog(msg, :helo)
         send_to_file(msg, :helo)
         Codesake::Commons::Io.remove_pid_file(pid_file) unless pid_file.nil?
@@ -29,32 +29,32 @@ module Codesake
       end
 
       def err(msg)
-        STDERR.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
+        STDERR.print "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:red)
         send_to_syslog(msg, :err)
         send_to_file(msg, :err)
       end
 
       def warn(msg)
-        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:yellow)
+        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [!] #{msg}\n".color(:yellow)
         send_to_syslog(msg, :warn)
         send_to_file(msg, :warn)
       end
 
       def ok(msg)
-        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")} [*] #{msg}\n".color(:green)
+        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [*] #{msg}\n".color(:green)
         send_to_syslog(msg, :log)
         send_to_file(msg, :log)
       end
 
       def log(msg)
         return if @silencer
-        STDOUT.printf "#{Time.now.strftime("%H:%M:%S")}: #{msg}\n".color(:white)
+        STDOUT.print "#{Time.now.strftime("%H:%M:%S")}: #{msg}\n".color(:white)
         send_to_syslog(msg, :debug)
         send_to_file(msg, :debug)
       end
 
       def helo(msg, pid_file = nil)
-        STDOUT.printf "[*] #{msg} at #{Time.now.strftime("%H:%M:%S")}\n".color(:white)
+        STDOUT.print "[*] #{msg} at #{Time.now.strftime("%H:%M:%S")}\n".color(:white)
         send_to_syslog(msg, :helo)
         send_to_file(msg, :helo)
         Codesake::Commons::Io.create_pid_file(pid_file) unless pid_file.nil?
