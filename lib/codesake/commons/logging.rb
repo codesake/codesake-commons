@@ -82,8 +82,8 @@ module Codesake
       def send_to_syslog(msg, level)
         return false unless @syslog
 
-        # log = Syslog.open("codesake") unless Syslog.opened?
-        # log = Syslog.reopen("codesake") if Syslog.opened?
+        log = Syslog.open("codesake") unless Syslog.opened?
+        log = Syslog.reopen("codesake") if Syslog.opened?
         Syslog.log(Syslog::LOG_DEBUG, msg.to_s)  if level == :debug
         Syslog.log(Syslog::LOG_WARNING, msg.to_s)   if level == :warn
         Syslog.log(Syslog::LOG_INFO, msg.to_s)   if level == :helo
