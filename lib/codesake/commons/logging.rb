@@ -49,8 +49,8 @@ module Codesake
       def log(msg)
         return if @silencer
         STDOUT.print "#{Time.now.strftime("%H:%M:%S")}: #{msg}\n".color(:white)
-        send_to_syslog(msg, :debug)
-        send_to_file(msg, :debug)
+        send_to_syslog(msg, :log)
+        send_to_file(msg, :log)
       end
 
       def helo(msg, pid_file = nil)
@@ -85,11 +85,11 @@ module Codesake
 
         log = Syslog.open("codesake") unless Syslog.opened?
         log = Syslog.reopen("codesake") if Syslog.opened?
-        Syslog.log(Syslog::LOG_DEBUG, msg.to_s)  if level == :debug
-        Syslog.log(Syslog::LOG_WARNING, msg.to_s)   if level == :warn
-        Syslog.log(Syslog::LOG_INFO, msg.to_s)   if level == :helo
-        Syslog.log(Syslog::LOG_INFO, msg.to_s) if level == :log
-        Syslog.log(Syslog::LOG_ERR, msg.to_s)    if level == :error 
+        log.log(Syslog::LOG_DEBUG, msg.to_s)  if level == :debug
+        log.log(Syslog::LOG_WARNING, msg.to_s)   if level == :warn
+        log.log(Syslog::LOG_INFO, msg.to_s)   if level == :helo
+        log.log(Syslog::LOG_INFO, msg.to_s) if level == :log
+        log.log(Syslog::LOG_ERR, msg.to_s)    if level == :error 
           
         true
       end
