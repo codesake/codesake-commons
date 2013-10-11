@@ -81,6 +81,7 @@ module Codesake
 
       def send_to_syslog(msg, level)
         return false unless @syslog
+        return false if msg.nil? || msg.empty?
 
         log = Syslog.open("codesake") unless Syslog.opened?
         log = Syslog.reopen("codesake") if Syslog.opened?
