@@ -18,4 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   
   gem.add_dependency 'rainbow'
+  gem.add_dependency 'mechanize'
+  gem.add_dependency 'nokogiri'
 end

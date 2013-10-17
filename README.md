@@ -1,12 +1,17 @@
-# CodesakeCommons
+# Codesake::Commons
 
-TODO: Write a gem description
+```Codesake::Commons``` is the common framework under the codesake.com project. 
+It defines core data structure, logging facilities and all other stuff needed by:
+
+* codesake-dusk
+* codesake-dawn
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'codesake_commons'
+    gem 'codesake-commons'
 
 And then execute:
 
@@ -14,11 +19,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install codesake_commons
+    $ gem install codesake-commons
 
 ## Usage
 
-TODO: Write usage instructions here
+### Using Codesake::Commons::Target
+
+```Codesake::Commons::Target``` is intended to be the code object containing
+all the information a security specialist needs during his activity.
 
 ## Contributing
 
