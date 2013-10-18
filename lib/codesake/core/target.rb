@@ -1,5 +1,5 @@
 module Codesake
-  module Commons
+  module Core
     class Target
       attr_reader :url
       attr_reader :username
@@ -30,6 +30,20 @@ module Codesake
         @url      ||= options[:url]
         @username ||= options[:username]
         @password ||= options[:password]
+      end
+
+      def get_page(url = nil)
+        url = @url if url.nil?
+
+        begin
+          page = @agent.get(url)
+          @cookies = @agent.cookies
+        rescue => e
+          $logger.err "get_page(): #{e.message}"
+          page = nil
+        end
+
+        page
       end
 
       def is_alive?
