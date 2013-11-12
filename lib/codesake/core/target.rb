@@ -1,3 +1,6 @@
+require 'mechanize'
+require 'codesake/commons/logging'
+
 module Codesake
   module Core
     class Target
@@ -5,6 +8,8 @@ module Codesake
       attr_reader :username
       attr_reader :password
       
+      attr_reader :page
+
 
       # This will be fed by codesake-gengiscan
       attr_reader :webserver
@@ -26,24 +31,29 @@ module Codesake
       def initialize(options={})
         $logger = Codesake::Commons::Logging.instance
         @agent  = Mechanize.new
+        @page   = nil
 
         @url      ||= options[:url]
         @username ||= options[:username]
         @password ||= options[:password]
       end
 
+      def has_page?
+        ! @page.nil?
+      end
+
       def get_page(url = nil)
         url = @url if url.nil?
 
         begin
-          page = @agent.get(url)
+          @page = @agent.get(url)
           @cookies = @agent.cookies
         rescue => e
           $logger.err "get_page(): #{e.message}"
-          page = nil
+          @page = nil
         end
 
-        page
+        @page
       end
 
       def is_alive?
