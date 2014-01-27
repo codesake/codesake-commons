@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = "codesake-commons"
   gem.version       = Codesake::Commons::VERSION
   gem.authors       = ["Paolo Perego"]
-  gem.email         = ["thesp0nge@gmail.com"]
+  gem.email         = ["paolo@codesake.com"]
   gem.description   = %q{codesake.com is an application security startup providing code review and penetration test services for Ruby powered web applications. codesake_commons is the gem containing common ground routines useful across the project}
   gem.summary       = %q{codesake_commons is the gem containing common ground routines useful across the codesake.com project}
   gem.homepage      = "http://codesake.com"
@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
   
-  gem.add_dependency 'rainbow'
+  gem.add_dependency 'rainbow', '~> 2.0.0'
   gem.add_dependency 'mechanize'
   gem.add_dependency 'nokogiri'
 end

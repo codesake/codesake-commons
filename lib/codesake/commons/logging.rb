@@ -23,7 +23,7 @@ module Codesake
       end
 
       def die(msg, pid_file=nil)
-        STDERR.print "#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n".color(:red)
+        STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n").red
         send_to_syslog(msg, :helo)
         send_to_file(msg, :helo)
         Codesake::Commons::Io.remove_pid_file(pid_file) unless pid_file.nil?
@@ -31,40 +31,40 @@ module Codesake
       end
 
       def err(msg)
-        STDERR.print "#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n".color(:red)
+        STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n").red
         send_to_syslog(msg, :err)
         send_to_file(msg, :err)
       end
 
       def warn(msg)
-        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n".color(:yellow)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n").yellow
         send_to_syslog(msg, :warn)
         send_to_file(msg, :warn)
       end
 
       def ok(msg)
-        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [*] #{@component}: #{msg}\n".color(:green)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [*] #{@component}: #{msg}\n").green
         send_to_syslog(msg, :log)
         send_to_file(msg, :log)
       end
 
       def log(msg)
         return if @silencer
-        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [$] #{@component}: #{msg}\n".color(:white)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [$] #{@component}: #{msg}\n").white
         send_to_syslog(msg, :log)
         send_to_file(msg, :log)
       end
 
       def helo(component, version, pid_file = nil)
         @component = component
-        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [*] #{@component} v#{version} is starting up\n".color(:white)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [*] #{@component} v#{version} is starting up\n").white
         send_to_syslog("#{@component} v#{version} is starting up", :helo)
         send_to_file("#{@component} v#{version} is starting up", :helo)
         Codesake::Commons::Io.create_pid_file(pid_file) unless pid_file.nil?
       end
 
       def bye(pid_file = nil)
-        STDOUT.print "#{Time.now.strftime("%H:%M:%S")} [*] #{@component} is leaving\n".color(:white)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [*] #{@component} is leaving\n").white
         send_to_syslog("#{@component} is leaving", :helo)
         send_to_file("#{@component} is leaving", :helo)
         Codesake::Commons::Io.remove_pid_file(pid_file) unless pid_file.nil?
