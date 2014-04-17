@@ -76,6 +76,12 @@ module Codesake
         send_to_file(msg, :debug)
       end
 
+      def bug(msg)
+        STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [B] #{@component}: #{msg}\n").red.bright
+        send_to_syslog(msg, :debug)
+        send_to_file(msg, :debug)
+      end
+
       def toggle_silence
         @silencer = ! @silencer
         @verbose  = ! @silencer
