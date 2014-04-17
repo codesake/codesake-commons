@@ -37,7 +37,7 @@ module Codesake
       end
 
       def warn(msg)
-        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [!] #{@component}: #{msg}\n").yellow
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [w] #{@component}: #{msg}\n").yellow
         send_to_syslog(msg, :warn)
         send_to_file(msg, :warn)
       end
@@ -68,6 +68,12 @@ module Codesake
         send_to_syslog("#{@component} is leaving", :helo)
         send_to_file("#{@component} is leaving", :helo)
         Codesake::Commons::Io.remove_pid_file(pid_file) unless pid_file.nil?
+      end
+
+      def debug(msg)
+        STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [D] #{@component}: #{msg}\n").yellow.bright
+        send_to_syslog(msg, :debug)
+        send_to_file(msg, :debug)
       end
 
       def toggle_silence

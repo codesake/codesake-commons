@@ -1,5 +1,5 @@
 module Codesake
   module Commons
-    VERSION = "0.95.0"
+    VERSION = "1.0.0"
   end
 end
