@@ -77,7 +77,7 @@ module Codesake
       end
 
       def bug(msg)
-        STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [B] #{@component}: #{msg}\n").red.bright
+        STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [%] #{@component}: - BUG - #{msg}\n").red.bright
         send_to_syslog(msg, :debug)
         send_to_file(msg, :debug)
       end
