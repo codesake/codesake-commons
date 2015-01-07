@@ -7,7 +7,7 @@ module Codesake
       attr_reader :url
       attr_reader :username
       attr_reader :password
-      
+
       attr_reader :page
 
 
@@ -16,7 +16,7 @@ module Codesake
       attr_reader :language
       attr_reader :cms
 
-      # This is the website tree. Fed by codesake-links. 
+      # This is the website tree. Fed by codesake-links.
       # Each tree element is an hash like
       # {:url, :code, :kind, :dynamic} :dynamic is true or false if the page
       # has some dynamic content that needs to be exploited (url parameters,
