@@ -7,17 +7,17 @@ module Codesake
     class Logging
       include Singleton
 
-      attr_reader   :silencer
-      attr_reader   :verbose
-      attr_reader   :syslog
+      attr_accessor   :silence
+      attr_accessor   :debug
+      attr_accessor   :syslog
       attr_accessor :filename
       attr_reader   :component
 
       def initialize
         super
-        @silencer = false
-        @verbose  = true
-        @syslog   = true
+        @silence = false
+        @debug  = true
+        @syslog   = false
         @filename = nil
         @component = ""
       end
@@ -37,19 +37,21 @@ module Codesake
       end
 
       def warn(msg)
+        return if @silence
         STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [w] #{@component}: #{msg}\n").yellow
         send_to_syslog(msg, :warn)
         send_to_file(msg, :warn)
       end
 
       def ok(msg)
+        return if @silence
         STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [*] #{@component}: #{msg}\n").green
         send_to_syslog(msg, :log)
         send_to_file(msg, :log)
       end
 
       def log(msg)
-        return if @silencer
+        return if @silence
         STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [$] #{@component}: #{msg}\n").white
         send_to_syslog(msg, :log)
         send_to_file(msg, :log)
@@ -71,20 +73,18 @@ module Codesake
       end
 
       def debug(msg)
+        return if @silence
+        return unless @debug
         STDOUT.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [D] #{@component}: #{msg}\n").yellow.bright
         send_to_syslog(msg, :debug)
         send_to_file(msg, :debug)
       end
 
       def bug(msg)
+        return if @silence
         STDERR.print Rainbow("#{Time.now.strftime("%H:%M:%S")} [%] #{@component}: - BUG - #{msg}\n").red.bright
         send_to_syslog(msg, :debug)
         send_to_file(msg, :debug)
-      end
-
-      def toggle_silence
-        @silencer = ! @silencer
-        @verbose  = ! @silencer
       end
 
       def toggle_syslog
